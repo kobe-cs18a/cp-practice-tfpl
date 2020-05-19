@@ -7,8 +7,8 @@ object Main {
         val example2 = Seq(100,80,200,40,500)
         println(s"$example1 に対する last の結果は ${last(example1)}")
         println(s"$example2 に対する last の結果は ${last(example2)}")
-        println(s"$example1 に対する sumFirstN の結果は ${sumFirstN(example1,2)}")
-        println(s"$example2 に対する sumFirstN の結果は ${sumFirstN(example2,3)}")
+        println(s"($example1,2) に対する sumFirstN の結果は ${sumFirstN(example1,2)}")
+        println(s"($example2,3) に対する sumFirstN の結果は ${sumFirstN(example2,3)}")
     }
 
     /**
