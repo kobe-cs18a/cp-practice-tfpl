@@ -1,0 +1,14 @@
+;; 整数変数の宣言
+(int n0 0 2)
+(int n1 0 2)
+(int n2 0 2)
+(int n3 0 2)
+(int n4 0 2)
+
+;; 制約の宣言
+(ne n0 n1)
+(ne n0 n4)
+(ne n1 n2)
+(ne n1 n3)
+(ne n2 n3)
+(ne n3 n4)

@@ -10,6 +10,8 @@ logBuffered in Test := false
 
 parallelExecution in Test := false
 
+resourceDirectory in Compile := baseDirectory.value / "csp"
+
 // resourceDirectory in Compile := baseDirectory.value / "data"
 
 // resourceDirectory in Compile := baseDirectory.value / "docs"
