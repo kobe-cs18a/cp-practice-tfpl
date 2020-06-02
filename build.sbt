@@ -10,12 +10,12 @@ logBuffered in Test := false
 
 parallelExecution in Test := false
 
-// resourceDirectory in Compile := baseDirectory.value / "data"
+unmanagedResourceDirectories in Compile += baseDirectory.value / "data"
+unmanagedResourceDirectories in Compile += baseDirectory.value / "docs"
+unmanagedResourceDirectories in Compile += baseDirectory.value / "csp"
 
-// resourceDirectory in Compile := baseDirectory.value / "docs"
-
-//testOptions in Test ++= Seq(
-//  Tests.Argument(TestFrameworks.ScalaTest, "-fWDT", s"docs/test-report_${name.value}.txt","-eNDXEHLO","-C", "SampleReporter")
-//  )
+testOptions in Test ++= Seq(
+  Tests.Argument(TestFrameworks.ScalaTest, "-fWDT", s"docs/test-report_${name.value}.txt","-eNDXEHLO","-C", "lecture.TfplReporter")
+)
 
 

@@ -1,6 +1,6 @@
 package lecture
 
-import jp.kobe_u.copris.{Solution, Var, Bool}
+import jp.kobe_u.copris._
 import jp.kobe_u.copris.dsl._
 
 object CP {
@@ -87,6 +87,34 @@ object CP {
       printSolution(solution, cnt)
     }
     init
+  }
+
+  def findSolution(csp0: CSP): (Boolean,Option[Solution]) = {
+    init
+    use(new sugar.Solver(csp0))
+    val res = if (find) {
+      (true,Some(solution))
+    } else {
+      (false,None)
+    }
+    init
+    res
+  }
+
+  def enumerateSolutions(csp0: CSP, num: Int = 0): (Boolean,Option[Seq[Solution]]) = {
+    init
+    use(new sugar.Solver(csp0))
+    var ss = Seq.empty[Solution]
+
+    if (find)
+      ss = Seq(solution)
+    else
+      return (false,None)
+
+    while ((num == 0 || num > ss.size) && findNext)
+      ss = ss :+ solution
+    init
+    (true,Some(ss))
   }
 
 }
