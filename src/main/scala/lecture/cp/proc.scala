@@ -5,17 +5,15 @@ import jp.kobe_u.copris._, dsl._
 object proc {
 
   def main(args: Array[String]): Unit = {
-
+    require(args.size == 2)
     args.size match {
       case 2 => {
         if (args(0) == "one")
           proc(args(1))
         else if (args(0) == "all")
           procall(args(1))
-      }
-      case 3 => {
-        if (args(0) == "opt")
-          procOpt(args(1),args(2))
+        else if (args(0) == "opt")
+          procOpt(args(1))
       }
     }
 
@@ -97,11 +95,11 @@ object proc {
   // gitpod /workspace/cp-practice-tfpl $ which clasp
   // /home/linuxbrew/.linuxbrew/bin/clasp
 
-  def procOpt(fileName: String, solver: String) = {
+  def procOpt(fileName: String) = {
     init // csp の初期化
 
     new jp.kobe_u.copris.loader.SugarLoader(csp).load(fileName) // ファイルの読み込み. csp オブジェクトにファイルの
-    use(new pb.Solver(csp, new pb.PbSolver(solver), "binary"))
+    use(new pb.Solver(csp, new pb.PbSolver("clasp"), "binary"))
 
     findOpt
 
