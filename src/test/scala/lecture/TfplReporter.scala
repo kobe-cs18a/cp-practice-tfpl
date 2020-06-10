@@ -10,7 +10,7 @@ class TfplReporter extends Reporter {
   var totalScore = 0
   var fullScore = 0
   var table = IndexedSeq.empty[Tuple2[String,String]]
-  val c1width = 30
+  val c1width = 50
   val c2width = 3
   val c3width = 3
 
@@ -34,14 +34,14 @@ class TfplReporter extends Reporter {
       val score = if (testName.contains(':')) testName.split(':').last.trim.toInt else 1
       totalScore += score
       fullScore += score
-      table = table :+ (s"${suiteName}",s"| ${alignL(s"${name}", c1width)} | ${alignR(score.toString, 3)} |" + GREEN + " OK " + RESET + s"| ${alignR(score.toString, 3)} |")
+      table = table :+ (s"${suiteName}",s"| ${alignL(s"${name}", c1width)} | ${alignR(score.toString, c2width)} |" + GREEN + " OK " + RESET + s"| ${alignR(score.toString, c2width)} |")
       // println(s"OK: ${suiteName} ${testName}")
     }
     case TestFailed(ordinal, message, suiteName, suiteId, suiteClassName, testName, testText, recordedEvents, analysis, throwable, duration, formatter, location, rerunner, payload, threadName, timeStamp) => {
       val name = testName.split(':').head.trim
       val score = if (testName.contains(':')) testName.split(':').last.trim.toInt else 1 // testName.split(':').last.trim.toInt
       fullScore += score
-      table = table :+ (s"${suiteName}",s"| ${alignL(s"${name}", c1width)} | ${alignR(score.toString, 3)} |" + RED + " NG " + RESET + s"| ${alignR("0", 3)} |")
+      table = table :+ (s"${suiteName}",s"| ${alignL(s"${name}", c1width)} | ${alignR(score.toString, c2width)} |" + RED + " NG " + RESET + s"| ${alignR("0", c2width)} |")
     }
     case RunCompleted(ordinal, duration, summary, formatter, location, payload, threadName, timeStamp) => {
 
@@ -55,7 +55,7 @@ class TfplReporter extends Reporter {
         println(line._2)
       }
       println("|" + Seq.fill(c1width+c2width+c3width+13)("-").mkString + "|")
-      println(s"| ${alignL(s"Total", 30)} | ${alignR(fullScore.toString, 3)} |    | ${alignR(totalScore.toString, 3)} |")
+      println(s"| ${alignL(s"Total", c1width)} | ${alignR(fullScore.toString, 3)} |    | ${alignR(totalScore.toString, 3)} |")
     }
     case _ =>
   }
