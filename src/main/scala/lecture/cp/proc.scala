@@ -12,6 +12,8 @@ object proc {
           proc(args(1))
         else if (args(0) == "all")
           procall(args(1))
+        else if (args(0).matches("\\d+"))
+          procall(args(1),args(0).toInt)
         else if (args(0) == "opt")
           procOpt(args(1))
       }
@@ -74,7 +76,7 @@ object proc {
     init
   }
 
-  def procall(fileName: String) = {
+  def procall(fileName: String, numsol: Int = 0) = {
     init // csp の初期化
     new jp.kobe_u.copris.loader.SugarLoader(csp).load(fileName) // ファイルの読み込み. csp オブジェクトにファイルの
     if (find) {
@@ -84,10 +86,18 @@ object proc {
       println("UNSATISFIABLE")
     }
     var cnt = 1
-    while (findNext) {
-      cnt += 1
-      println()
-      printSolution(solution, cnt)
+    if (numsol == 0) {
+      while (findNext) {
+        cnt += 1
+        println()
+        printSolution(solution, cnt)
+      }
+    } else {
+      while (cnt < numsol && findNext) {
+        cnt += 1
+        println()
+        printSolution(solution, cnt)
+      }
     }
     init
   }
