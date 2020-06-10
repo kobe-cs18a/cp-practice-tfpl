@@ -8,6 +8,7 @@ import kobe_cs18a.tfpl._
 object test {
   def main(args: Array[String]) = {
     testAlldiff
+    testWsum
     // 追加されたテストメソッドを runMain で実行する場合はここに追記する
   }
 
@@ -21,6 +22,22 @@ object test {
     val vars = xs.flatMap(_.toSeq).map(x => x - 1)
 
     add(Alldifferent(vars))
+
+    find
+
+    println(solution)
+
+    init
+  }
+
+  def testWsum = {
+    init
+
+    val x = int(Var(s"x"), 1, 10)
+    val y = int(Var(s"y"), 1, 10)
+    val z = int(Var(s"z"), 1, 10)
+
+    add(Weightedsum(Seq((3,x),(4,y),(7,z)), "eq", Num(20)))
 
     find
 
