@@ -102,7 +102,7 @@ class p203_gcp3 extends Base {
   for ((iname, ncol, nsol) <- testSet) {
     cnt += 1
     val fileName: String = lecture.cp.EX2.getName(this, Seq(iname, ncol))
-    val cspTec = (new kobe_cs18a.tfpl.p202_gcp2(s"data/${iname}.col", ncol)).getCSP()
+    val cspTec = (new kobe_cs18a.tfpl.p203_gcp3(s"data/${iname}.col", ncol)).getCSP()
     gcpParFile(cnt, fileName, nsol, cspTec)
   }
 
