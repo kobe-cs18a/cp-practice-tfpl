@@ -4,11 +4,35 @@ import jp.kobe_u.copris._, dsl._
 
 import kobe_cs18a.tfpl._
 
-object EX2 {
-  def getName(c: Any, is: Seq[Any]) = {
-    val tail = if (is.nonEmpty) is.mkString("_", "_", ".csp") else ".csp"
-    s"csp/${c.getClass.getName.split('.').last.replace("$", "")}" + tail
+
+object test {
+  def main(args: Array[String]) = {
+    testAlldiff
+    // 追加されたテストメソッドを runMain で実行する場合はここに追記する
   }
+
+  def testAlldiff = {
+    init
+
+    val xs: Seq[Seq[Var]] =
+      for (i <- 0 until 3) yield
+        for (j <- 0 until 3) yield int(Var(s"x_${i}_${j}"), 1, 20)
+
+    val vars = xs.flatMap(_.toSeq).map(x => x - 1)
+
+    add(Alldifferent(vars))
+
+    find
+
+    println(solution)
+
+    init
+  }
+
+  // 適宜テストメソッドを追記してよい
+  // def test1 = {
+  //
+  // }
 }
 
 object p201_gcp1 {
@@ -264,5 +288,14 @@ object p401_saizeriya_pfix {
     dump(EX2.getName(this, Seq(insName)))
     init
 
+  }
+
+}
+
+/* 以下は編集しない */
+object EX2 {
+  def getName(c: Any, is: Seq[Any]) = {
+    val tail = if (is.nonEmpty) is.mkString("_", "_", ".csp") else ".csp"
+    s"csp/${c.getClass.getName.split('.').last.replace("$", "")}" + tail
   }
 }
