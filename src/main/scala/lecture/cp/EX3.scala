@@ -52,10 +52,3 @@ object p501_LifeGame {
 
 }
 
-/* 以下は編集しない */
-object EX2 {
-  def getName(c: Any, is: Seq[Any]) = {
-    val tail = if (is.nonEmpty) is.mkString("_", "_", ".csp") else ".csp"
-    s"csp/${c.getClass.getName.split('.').last.replace("$", "")}" + tail
-  }
-}
