@@ -16,6 +16,8 @@ object proc {
           procall(args(1),args(0).toInt)
         else if (args(0) == "opt")
           procOpt(args(1))
+        else if (args(0) == "lg")
+          procLifeGame(args(1))
       }
     }
 
@@ -119,7 +121,35 @@ object proc {
     init
   }
 
+  def procLifeGame(fileName: String) = {
+    init // csp の初期化
 
+    new jp.kobe_u.copris.loader.SugarLoader(csp).load(fileName) // ファイルの読み込み. csp オブジェクトにファイルの
+
+    if (find) {
+      val sol = Some(solution)
+      val rows = (0 until 20).filter(i => solution.intValues.contains(Var(s"x_${i}_${0}_0")))
+      val cols = (0 until 20).filter(i => solution.intValues.contains(Var(s"x_${0}_${i}_0")))
+      val ks = (0 until 20).filter(i => solution.intValues.contains(Var(s"x_${0}_${0}_${i}")))
+
+      for (k <- ks.sorted) {
+        println("==================")
+        println(s"Generation $k")
+        println("==================")
+        for (row <- rows.sorted) {
+          println(cols.sorted.map(i => solution.intValues(Var(s"x_${row}_${i}_${k}"))).map(j => if (j == 1) "O" else "_").mkString(""))
+        }
+      }
+      println("SAT")
+      init
+      //(true,sol)
+    } else {
+      println("UNSAT")
+      init
+      //(false,None)
+    }
+
+  }
   def findSolution(csp0: CSP): (Boolean,Option[Solution]) = {
     init
     use(new sugar.Solver(csp0))
